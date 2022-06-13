@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema({
     default: "user"
   },
   resetPasswordToken: String,
-  resetPasswordExpire: Date
+  resetPasswordExpire: Date,
 });
 
 userSchema.pre("save", async function(next) {
@@ -56,14 +56,20 @@ userSchema.methods.getJWTToken = function() {
   return jwt.sign({
     id: this._id
   }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE
+    expiresIn: process.env.JWT_EXPIRE,
   });
 };
 
-// Compare password
-userSchema.methods.comparePassword = async function(enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-}
+// // Compare password
+// userSchema.methods.comparePassword = async function(enteredPassword) {
+//   return await bcrypt.compare(enteredPassword, this.password);
+// }
+
+// Compare Password
+
+userSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 
 // generating password reset Token
 userSchema.methods.getResetPasswordToken = function() {
