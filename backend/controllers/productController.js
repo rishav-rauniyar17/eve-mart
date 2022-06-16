@@ -3,10 +3,8 @@ const ErrorHander = require("../utils/errorhander");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ApiFeatures = require("../utils/apifeatures");
 
-
 //create product --admin
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
-
   req.body.user = req.user.id;
 
   const product = await Product.create(req.body);
@@ -18,9 +16,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 });
 
 //get all products
-exports.getAllProducts = catchAsyncErrors(async (req, res,next) => {
-
-
+exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   const resultPerPage = 8;
   const productsCount = await Product.countDocuments();
 
@@ -34,12 +30,12 @@ exports.getAllProducts = catchAsyncErrors(async (req, res,next) => {
     success: true,
     products,
     productsCount,
+    resultPerPage,
   });
 });
 
 //get product details
 exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
-
   const product = await Product.findById(req.params.id);
 
   if (!product) {
@@ -49,7 +45,7 @@ exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     product,
-  })
+  });
 });
 
 //update product --admin
@@ -59,17 +55,16 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 
   if (!product) {
     return next(new ErrorHander("Product not found", 404));
-
   }
   product = await Product.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   });
   res.status(200).json({
     success: true,
-    product
-  })
+    product,
+  });
 });
 
 //delete product
@@ -81,11 +76,9 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
   await product.remove();
   res.status(200).json({
     success: true,
-    message: "Product Delete Successfully"
-  })
+    message: "Product Delete Successfully",
+  });
 });
-
-
 
 // Create New Review or Update the review
 exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
@@ -114,7 +107,6 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
     product.numOfReviews = product.reviews.length;
   }
 
-
   //4,5,5,2=16/4
   let avg = 0;
 
@@ -124,14 +116,12 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
 
   product.ratings = avg / product.reviews.length;
 
-
   await product.save({ validateBeforeSave: false });
 
   res.status(200).json({
     success: true,
   });
 });
-
 
 // Get All Reviews of a product
 exports.getProductReviews = catchAsyncErrors(async (req, res, next) => {
@@ -193,4 +183,3 @@ exports.deleteReview = catchAsyncErrors(async (req, res, next) => {
     success: true,
   });
 });
-
