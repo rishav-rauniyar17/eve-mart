@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from "react";
 import "./Search.css";
 import { useNavigate } from "react-router-dom";
+import MetaData from "../layout/MetaData";
 
-const Search = ({ history }) => {
+const Search = () => {
   const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
   
@@ -11,13 +12,16 @@ const Search = ({ history }) => {
 
     if (keyword.trim()) {
       navigate(`/products/${keyword}`);
+  
     } else {
       navigate("/products");
+   
     }
   };
 
   return (
     <Fragment>
+       <MetaData title="Search a Product -- Eve-Mart" />
       <form className="searchBox" onSubmit={searchSubmitHandler}>
         <input
           type="text"
