@@ -6,11 +6,6 @@ import { useParams } from "react-router-dom";
 import ProductCard from "../Home/ProductCard";
 import Loader from "../layout/Loader/Loader";
 import Pagination from "react-js-pagination";
-<<<<<<< HEAD
-
-import Slider from "@material-ui/core/Slider";
-import Typography from "@material-ui/core/Typography";
-=======
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
 import { useAlert } from "react-alert";
@@ -25,7 +20,6 @@ const categories = [
   "Camera",
   "SmartPhones",
 ];
->>>>>>> FrontendFiltration
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -33,15 +27,10 @@ const Products = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 25000]);
-<<<<<<< HEAD
-
-  const { products, loading, error, productsCount, resultPerPage,  } =
-=======
   const [category, setCategory] = useState("");
   const [ratings, setRatings] = useState(0);
 
   const { products, loading, error, productsCount, resultPerPage, } =
->>>>>>> FrontendFiltration
     useSelector((state) => state.products);
 
   const { keyword } = useParams();
@@ -54,16 +43,6 @@ const Products = () => {
     setPrice(newPrice);
   };
 
-<<<<<<< HEAD
-
-  // let count = filteredProductsCount;
-
-  useEffect(() => {
-    dispatch(getProduct(keyword, currentPage,price));
-  }, [dispatch, keyword, currentPage,price]);
-
- 
-=======
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -73,7 +52,6 @@ const Products = () => {
   }, [dispatch, keyword, currentPage,price,category,ratings,alert, error]);
 
   // let count=filteredProductsCount;
->>>>>>> FrontendFiltration
 
   return (
     <Fragment>
@@ -100,9 +78,6 @@ const Products = () => {
               max={25000}
             />
 
-<<<<<<< HEAD
-          </div>
-=======
            <Typography>Categories</Typography>
             <ul className="categoryBox">
               {categories.map((category) => (
@@ -131,7 +106,6 @@ const Products = () => {
             </fieldset>
 
             </div>
->>>>>>> FrontendFiltration
           {resultPerPage < productsCount && (
             <div className="paginationBox">
               <Pagination
