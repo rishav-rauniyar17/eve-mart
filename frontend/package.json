@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
+    "@material-ui/lab": "^4.0.0-alpha.61",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.4",
     "@mui/styles": "^5.8.4",
@@ -55,5 +56,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://172.31.82.13:4000"
+  "proxy": "http://192.168.153.1:4000"
 }
