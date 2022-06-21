@@ -4,18 +4,21 @@ import WebFont from "webfontloader";
 import React from "react";
 import Header from "./component/layout/Header/Header";
 import Footer from "./component/layout/Footer/Footer";
-import Home from "./component/Home/Home.js";
+import Home from "./component/Home/Home";
 import ProductDetails from "./component/Product/ProductDetails";
-import Products from "./component/Product/Products.js";
+import Products from "./component/Product/Products";
 import Search from "./component/Product/Search";
 import Profile from "./component/User/Profile";
 import LoginSignUp from "./component/User/LoginSignUp";
 import store from "./store";
 import { loadUser } from "./actions/userAction";
-import UserOptions from "./component/layout/Header/UserOptions.js";
+import UserOptions from "./component/layout/Header/UserOptions";
 import { useSelector } from "react-redux";
 import ProtectedRoute from "./component/Route/ProtectedRoute";
-import UpdateProfile from "./component/User/UpdateProfile.js";
+import UpdateProfile from "./component/User/UpdateProfile";
+import UpdatePassword from "./component/User/UpdatePassword";
+import ForgotPassword from "./component/User/ForgotPassword";
+import ResetPassword from "./component/User/ResetPassword";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -48,6 +51,15 @@ function App() {
           path="/me/update"
           element={<ProtectedRoute component={UpdateProfile} />}
         />
+  
+                <Route 
+              path="/password/update"
+              element={<ProtectedRoute component={UpdatePassword}/>}
+            />
+
+           <Route path="/password/forgot" element={<ForgotPassword/>} />
+           <Route path="/password/reset/:token" element={<ResetPassword/>} />
+        
         <Route path="/login" element={<LoginSignUp />} />
       </Routes>
 
