@@ -9,6 +9,8 @@ import ReactStars from "react-rating-stars-component";
 import ReviewCard from "./ReviewCard.js";
 import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
+import { useState } from "react";
+import { addItemsToCart } from "../../actions/cartAction";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -36,13 +38,32 @@ const ProductDetails = () => {
     isHalf: true,
   };
 
+  const [quantity, setQuantity] = useState(1);
+
+  const increaseQuantity = () => {
+    if (product.Stock <= quantity) return;
+    const qty = quantity + 1;
+    setQuantity(qty);
+  };
+
+  const addToCartHandler = () => {
+    dispatch(addItemsToCart(id, quantity));
+    alert.success("Items Added To Cart");
+  };
+
+  const decreaseQuantity = () => {
+    if (quantity <= 1) return;
+    const qty = quantity - 1;
+    setQuantity(qty);
+  };
+
   return (
     <Fragment>
       {loading ? (
         <Loader />
       ) : (
         <Fragment>
-              <MetaData title={`${product.name} -- Eve-Mart`} />
+          <MetaData title={`${product.name} -- Eve-Mart`} />
           <div className="ProductDetails">
             <div>
               <Carousel>
@@ -70,11 +91,11 @@ const ProductDetails = () => {
                 <h1>{`₹${product.price}`}</h1>
                 <div className="detailsBlock-3-1">
                   <div className="detailsBlock-3-1-1">
-                    <button>-</button>
-                    <input value="1" type="number" />
-                    <button>+</button>
+                    <button onClick={decreaseQuantity}>-</button>
+                    <input type="number" value={quantity} readOnly />
+                    <button onClick={increaseQuantity}>+</button>
                   </div>
-                  <button>Add to Cart</button>
+                  <button onClick={addToCartHandler}>Add to Cart</button>
                 </div>
                 <p>
                   Status:
