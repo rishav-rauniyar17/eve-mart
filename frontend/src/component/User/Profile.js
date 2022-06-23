@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import MetaData from "../layout/MetaData";
 import Loader from "../layout/Loader/Loader";
@@ -7,12 +7,6 @@ import "./Profile.css";
 
 const Profile = (history) => {
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
-  const navigate = useNavigate();
-  //   useEffect(() => {
-  //     if (isAuthenticated === false) {
-  //       history.push("/login");
-  //     }
-  //   }, [isAuthenticated, history]);
   useEffect(() => {
     if (isAuthenticated === false) {
       history.push("/login");
