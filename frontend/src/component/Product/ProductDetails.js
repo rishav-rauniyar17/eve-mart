@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect,useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import "./ProductDetails.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,7 +9,6 @@ import ReactStars from "react-rating-stars-component";
 import ReviewCard from "./ReviewCard.js";
 import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
-import { useState } from "react";
 import { addItemsToCart } from "../../actions/cartAction";
 
 const ProductDetails = () => {
@@ -46,15 +45,17 @@ const ProductDetails = () => {
     setQuantity(qty);
   };
 
-  const addToCartHandler = () => {
-    dispatch(addItemsToCart(id, quantity));
-    alert.success("Items Added To Cart");
-  };
+
 
   const decreaseQuantity = () => {
     if (quantity <= 1) return;
     const qty = quantity - 1;
     setQuantity(qty);
+  };
+
+  const addToCartHandler = () => {
+    dispatch(addItemsToCart(id, quantity));
+    alert.success("Items Added To Cart");
   };
 
   return (

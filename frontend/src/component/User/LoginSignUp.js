@@ -10,7 +10,7 @@ import { clearErrors, login, register } from "../../actions/userAction";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 
-const LoginSignUp = ({ history }) => {
+const LoginSignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const alert = useAlert();
