@@ -10,7 +10,7 @@ import { clearErrors, login, register } from "../../actions/userAction";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 
-const LoginSignUp = () => {
+const LoginSignUp = ({ location }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const alert = useAlert();
@@ -70,15 +70,20 @@ const LoginSignUp = () => {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
   };
+
+  const redirect = window.location.search
+    ? window.location.search.split("=")[1]
+    : "/account";
+
   useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
     if (isAuthenticated) {
-      navigate("/account");
+      navigate(redirect);
     }
-  }, [dispatch, error, alert, isAuthenticated, navigate]);
+  }, [dispatch, error, alert, isAuthenticated, navigate, redirect]);
 
   const switchTabs = (e, tab) => {
     if (tab === "login") {
