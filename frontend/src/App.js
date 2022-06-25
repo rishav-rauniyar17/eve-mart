@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import WebFont from "webfontloader";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./component/layout/Header/Header";
 import Footer from "./component/layout/Footer/Footer";
 import Home from "./component/Home/Home";
@@ -20,13 +20,25 @@ import UpdatePassword from "./component/User/UpdatePassword";
 import ForgotPassword from "./component/User/ForgotPassword";
 import ResetPassword from "./component/User/ResetPassword";
 import Cart from "./component/Cart/Cart";
-import Shipping from "./component/Cart/Shipping.js";
-import ConfirmOrder from "./component/Cart/ConfirmOrder.js";
+import Shipping from "./component/Cart/Shipping";
+import ConfirmOrder from "./component/Cart/ConfirmOrder";
+import axios from "axios";
+import Payment from "./component/Cart/Payment";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import OrderSuccess from "./component/Cart/OrderSuccess.js";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
-  React.useEffect(() => {
+  const [stripeApiKey, setStripeApiKey] = useState("");
+
+  async function getStripeApiKey() {
+    const { data } = await axios.get("/api/v1/stripeapikey");
+    setStripeApiKey(data.stripeApiKey);
+  }
+
+  useEffect(() => {
     WebFont.load({
       google: {
         families: ["Roboto", "Droid Sans", "Chilanka"],
@@ -34,6 +46,8 @@ function App() {
     });
 
     store.dispatch(loadUser);
+
+    getStripeApiKey();
   }, []);
 
   return (
@@ -74,7 +88,22 @@ function App() {
           path="/order/confirm"
           element={<ProtectedRoute component={ConfirmOrder} />}
         />
+        <Route
+          path="/order/success"
+          element={<ProtectedRoute component={OrderSuccess} />}
+        />
       </Routes>
+
+      {stripeApiKey && (
+        <Elements stripe={loadStripe(stripeApiKey)}>
+          <Routes>
+            <Route
+              path="/process/payment"
+              element={<ProtectedRoute component={Payment} />}
+            />
+          </Routes>
+        </Elements>
+      )}
 
       <Footer />
     </Router>

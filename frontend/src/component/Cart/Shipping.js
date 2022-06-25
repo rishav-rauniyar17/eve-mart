@@ -49,7 +49,7 @@ const Shipping = ({ history }) => {
           <form
             className="shippingForm"
             encType="multipart/form-data"
-            onChange={shippingSubmit}
+            onSubmit={shippingSubmit}
           >
             <div>
               <HomeIcon />
