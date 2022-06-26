@@ -54,6 +54,16 @@ function App() {
     <Router>
       <Header />
       {isAuthenticated && <UserOptions user={user} />}
+      {stripeApiKey && (
+        <Elements stripe={loadStripe(stripeApiKey)}>
+          <Routes>
+            <Route
+              path="/process/payment"
+              element={<ProtectedRoute component={Payment} />}
+            />
+          </Routes>
+        </Elements>
+      )}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductDetails />} />
@@ -93,17 +103,6 @@ function App() {
           element={<ProtectedRoute component={OrderSuccess} />}
         />
       </Routes>
-
-      {stripeApiKey && (
-        <Elements stripe={loadStripe(stripeApiKey)}>
-          <Routes>
-            <Route
-              path="/process/payment"
-              element={<ProtectedRoute component={Payment} />}
-            />
-          </Routes>
-        </Elements>
-      )}
 
       <Footer />
     </Router>

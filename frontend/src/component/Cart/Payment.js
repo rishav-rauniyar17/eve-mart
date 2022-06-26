@@ -55,7 +55,7 @@ const Payment = () => {
         },
       };
       const { data } = await axios.post(
-        "api/v1/payment/process",
+        `/api/v1/payment/process`,
         paymentData,
         config
       );
@@ -90,7 +90,7 @@ const Payment = () => {
 
         dispatch(createOrder(order));
 
-        navigate("/success");
+        navigate("/order/success");
       } else {
         alert.error("Issue while processing payment");
       }
@@ -129,7 +129,7 @@ const Payment = () => {
 
           <input
             type="submit"
-            value={`Pay - ₹${orderInfo && orderInfo.totalPrice}`}
+            value={`Pay  ₹${orderInfo && orderInfo.totalPrice}`}
             ref={payBtn}
             className="paymentFormBtn"
           />
