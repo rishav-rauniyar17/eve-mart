@@ -1,99 +1,100 @@
-const mongoose = require('mongoose');
-
+const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
   shippingInfo: {
     address: {
       type: String,
-      required: true
+      required: true,
     },
     city: {
       type: String,
-      required: true
+      required: true,
     },
     state: {
       type: String,
-      required: true
+      required: true,
     },
     country: {
       type: String,
-      required: true
+      required: true,
     },
     pinCode: {
       type: Number,
-      required: true
+      required: true,
     },
-    phoneNumber: {
+    phoneNo: {
       type: Number,
-      required: true
+      required: true,
     },
   },
-  orderItems: [{
-    name: {
-      type: String,
-      required: true
+  orderItems: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      price: {
+        type: Number,
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+      },
+      image: {
+        type: String,
+        required: true,
+      },
+      product: {
+        type: mongoose.Schema.ObjectId,
+        ref: "Product",
+        required: true,
+      },
     },
-    price: {
-      type: Number,
-      required: true
-    },
-    quantity: {
-      type: Number,
-      required: true
-    },
-    image: {
-      type: String,
-      required: true
-    },
-    product: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Product",
-      required: true
-    }
-  }],
+  ],
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "Product",
-    required: true
+    required: true,
   },
   paymentInfo: {
     id: {
       type: String,
-      required: true
+      required: true,
     },
     status: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   paidAt: {
     type: Date,
-    required: true
+    required: true,
   },
   itemsPrice: {
     type: Number,
     default: 0,
-    required: true
+    required: true,
   },
   taxPrice: {
     type: Number,
     default: 0,
-    required: true
+    required: true,
   },
   shippingPrice: {
     type: Number,
     default: 0,
-    required: true
+    required: true,
   },
   totalPrice: {
     type: Number,
     default: 0,
-    required: true
+    required: true,
   },
   orderStatus: {
     type: String,
     required: true,
-    default: "Processing"
+    default: "Processing",
   },
   deliveredAt: Date,
   createdAt: {
