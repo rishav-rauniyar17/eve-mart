@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect,useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import "./ProductDetails.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -44,8 +44,6 @@ const ProductDetails = () => {
     const qty = quantity + 1;
     setQuantity(qty);
   };
-
-
 
   const decreaseQuantity = () => {
     if (quantity <= 1) return;
@@ -96,7 +94,12 @@ const ProductDetails = () => {
                     <input type="number" value={quantity} readOnly />
                     <button onClick={increaseQuantity}>+</button>
                   </div>
-                  <button onClick={addToCartHandler}>Add to Cart</button>
+                  <button
+                    disabled={product.Stock < 1 ? true : false}
+                    onClick={addToCartHandler}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
                 <p>
                   Status:

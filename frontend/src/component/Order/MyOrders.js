@@ -4,7 +4,7 @@ import "./MyOrders.css";
 import { useSelector, useDispatch } from "react-redux";
 import { clearErrors, myOrders } from "../../actions/orderAction";
 import Loader from "../layout/Loader/Loader";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import Typography from "@material-ui/core/Typography";
 import MetaData from "../layout/MetaData";
@@ -12,10 +12,10 @@ import LaunchIcon from "@material-ui/icons/Launch";
 
 const MyOrders = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+
   const alert = useAlert();
 
-  const { loading, error, orders } = useSelector((state) => state.myOrders);
+  const { loading, error, order } = useSelector((state) => state.myOrders);
   const { user } = useSelector((state) => state.user);
 
   const columns = [
@@ -27,7 +27,7 @@ const MyOrders = () => {
       minWidth: 150,
       flex: 0.5,
       cellClassName: (params) => {
-        return params.getValue(id, "status") === "Delivered"
+        return params.getValue(params.id, "status") === "Delivered"
           ? "greenColor"
           : "redColor";
       },
@@ -57,24 +57,24 @@ const MyOrders = () => {
       sortable: false,
       renderCell: (params) => {
         return (
-          <Link to={`/order/${params.getValue(id, "id")}`}>
+          <Link to={`/order/${params.getValue(params.id, "id")}`}>
             <LaunchIcon />
           </Link>
         );
       },
     },
   ];
-  const rows = [];
+  var rows = [];
 
-  orders &&
-    orders.forEach((item, index) => {
+  order &&
+    order.forEach((item) =>
       rows.push({
         itemsQty: item.orderItems.length,
         id: item._id,
         status: item.orderStatus,
         amount: item.totalPrice,
-      });
-    });
+      })
+    );
 
   useEffect(() => {
     if (error) {
