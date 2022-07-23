@@ -29,6 +29,9 @@ import { loadStripe } from "@stripe/stripe-js";
 import OrderSuccess from "./component/Cart/OrderSuccess.js";
 import MyOrders from "./component/Order/MyOrders.js";
 import OrderDetails from "./component/Order/OrderDetails.js";
+import Dashboard from "./component/Admin/Dashboard.js";
+import ProductList from "./component/Admin/ProductList.js";
+import NewProduct from "./component/Admin/NewProduct";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -112,6 +115,23 @@ function App() {
           path="/order/:id"
           element={<ProtectedRoute component={OrderDetails} />}
         />
+        <Route
+      
+          path="/admin/dashboard"
+          element={<ProtectedRoute component={Dashboard} />}
+        />
+
+    <Route
+      
+      path="/admin/products"
+      element={<ProtectedRoute component={ProductList} />}
+    />
+
+<Route
+      
+      path="/admin/product"
+      element={<ProtectedRoute component={NewProduct} />}
+    />
       </Routes>
 
       <Footer />

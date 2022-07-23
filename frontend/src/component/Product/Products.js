@@ -12,11 +12,11 @@ import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
 
 const categories = [
-  "laptop",
+  "Laptop",
   "Footwear",
   "Bottom",
   "Tops",
-  "Attire",
+  "Bat",
   "Camera",
   "SmartPhones",
 ];

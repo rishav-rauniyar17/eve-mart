@@ -49,7 +49,7 @@ const UserOptions = ({ user }) => {
   }
 
   function dashboard() {
-    navigate("/dashboard");
+    navigate("/admin/dashboard");
   }
 
   function orders() {
